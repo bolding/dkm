@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DKm fjords</title><meta name="description" content="DKm: a nested pyGETM setup for the Danish waters and their fjords, 4 km to 57 m, Denmark's Depth Model at 50 m.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>:root{box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>/* Layout: a single reading column (about 68ch) with figures that break out to a wider measure;
+   a sticky chapter bar. Colours from a sounding chart: deep-water ink, chart paper, bathymetric
+   teal for links, the interface magenta of the figures for emphasis. */
+:root {
+  --paper: #f3f5f4;
+  --paper-2: #e7ecea;
+  --ink: #142028;
+  --ink-2: #4a5a63;
+  --rule: #c9d3d1;
+  --teal: #0b6b72;
+  --magenta: #b0216f;
+  --plate: #ffffff;
+  --ok: #2c7a3f;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure: 68ch;
+  --wide: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f171c; --paper-2: #17222a; --ink: #dfe7e9; --ink-2: #9fb0b7; --rule: #2a3a43;
+    --teal: #57bcc4; --magenta: #e26aa9; --plate: #f7f8f8; --ok: #6fc285; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f171c; --paper-2: #17222a; --ink: #dfe7e9; --ink-2: #9fb0b7; --rule: #2a3a43;
+  --teal: #57bcc4; --magenta: #e26aa9; --plate: #f7f8f8; --ok: #6fc285; color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 1.06rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: var(--teal); text-underline-offset: 2px; }
+code, pre { font-family: var(--mono); font-size: 0.86em; }
+code { background: var(--paper-2); padding: 0.05em 0.3em; border-radius: 3px; overflow-wrap: anywhere; }
+:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+
+/* top bar */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule);
+}
+.topin {
+  max-width: var(--wide); margin: 0 auto; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+  padding-block: 0.6rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.brand { font: 700 0.95rem/1 var(--display); font-stretch: 85%; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.topbar nav { display: flex; gap: 0.2rem 1rem; flex-wrap: wrap; }
+.topbar nav a { font: 600 0.88rem/1.4 var(--display); color: var(--ink-2); text-decoration: none; }
+.topbar nav a:hover { color: var(--teal); }
+
+main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 4rem; }
+main > *, .chapter > * { max-width: var(--measure); margin-left: auto; margin-right: auto; }
+.chapter > .fig.wide, .chapter > .grid2, .chapter > .grid3, .chapter > .tablewrap, .chapter > .stepper,
+.chapter > .twocol, .chapter > .statusgrid, .hero { max-width: var(--wide); }
+
+/* hero */
+.hero { padding-block: 3.5rem 2.5rem; display: grid; gap: 1.1rem; }
+.draft { font: 600 0.78rem/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--magenta); margin: 0; }
+h1 {
+  font: 800 clamp(2.1rem, 5.4vw, 3.9rem)/1.02 var(--display); font-stretch: 78%;
+  letter-spacing: -0.01em; margin: 0; max-width: 18ch; text-wrap: balance;
+}
+.lede { font-size: 1.18rem; color: var(--ink-2); max-width: var(--measure); margin: 0; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0; margin: 1rem 0 0; border-top: 2px solid var(--ink); }
+.facts > div { padding: 0.8rem 1rem 0.6rem 0; border-bottom: 1px solid var(--rule); }
+.facts dt { font: 600 0.74rem/1.2 var(--display); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); }
+.facts dd { margin: 0.15rem 0 0; font: 700 1.9rem/1.1 var(--display); font-stretch: 80%; font-variant-numeric: tabular-nums; }
+.facts p { margin: 0.1rem 0 0; font-size: 0.88rem; color: var(--ink-2); }
+
+/* chapters */
+.chapter { padding-block: 3rem 1rem; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 1.3rem; }
+.chapter > * { width: 100%; }
+.chap { display: grid; gap: 0.3rem; }
+.eyebrow { font: 700 0.76rem/1 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+h2 { font: 800 clamp(1.7rem, 3.6vw, 2.5rem)/1.08 var(--display); font-stretch: 80%; margin: 0; text-wrap: balance; }
+h3 { font: 700 1.35rem/1.2 var(--display); font-stretch: 85%; margin: 1.4rem auto 0; text-wrap: balance; }
+h4 { font: 700 1.02rem/1.3 var(--display); margin: 0 0 0.4rem; }
+p { margin: 0; }
+ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+.small { font-size: 0.92rem; color: var(--ink-2); }
+.ok { color: var(--ok); font-weight: 600; }
+
+/* figures: white plates, so the white-background figures read in both themes */
+.fig { margin: 0; display: grid; gap: 0.55rem; min-width: 0; }
+.plate {
+  display: block; width: 100%; padding: 0; border: 1px solid var(--rule); border-radius: 4px;
+  background: var(--plate); cursor: zoom-in; overflow: hidden;
+}
+.plate.static { cursor: default; }
+.plate img { display: block; width: 100%; height: auto; }
+figcaption { font-size: 0.93rem; color: var(--ink-2); display: grid; gap: 0.2rem; }
+figcaption strong { font: 700 0.98rem/1.3 var(--display); color: var(--ink); }
+.grid2, .grid3 { display: grid; gap: 1.6rem 1.4rem; align-items: start; }
+.grid2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); }
+.grid3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.6rem; align-items: start; }
+.twocol > *, .grid2 > *, .grid3 > * { min-width: 0; }
+.statusgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.6rem; }
+.statusgrid > div { border-top: 2px solid var(--ink); padding-top: 0.7rem; }
+
+/* tables */
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th { font: 700 0.78rem/1.2 var(--display); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); text-align: left; padding: 0.5rem 0.7rem 0.4rem 0; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+td { padding: 0.45rem 0.7rem 0.45rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.num td { font-variant-numeric: tabular-nums; }
+td:first-child { font-family: var(--mono); font-size: 0.85rem; white-space: nowrap; }
+
+.callout { border-left: 3px solid var(--magenta); padding: 0.2rem 0 0.2rem 1rem; display: grid; gap: 0.7rem; }
+pre { margin: 0; padding: 0.8rem 1rem; background: var(--paper-2); border-radius: 4px; overflow-x: auto; line-height: 1.45; }
+pre code { background: none; padding: 0; }
+
+/* stepper */
+.stepper { display: grid; gap: 0.8rem; }
+.stepper-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem; align-items: center; }
+.stepnav { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.step, .stepctl button, #lbclose {
+  font: 600 0.9rem/1 var(--display); border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  border-radius: 3px; min-width: 2.3rem; height: 2.3rem; padding: 0 0.7rem; cursor: pointer;
+}
+.step[aria-current="step"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.stepctl { display: flex; gap: 0.4rem; }
+.step:hover, .stepctl button:hover { border-color: var(--teal); }
+.steptext { display: grid; gap: 0.2rem; max-width: var(--measure); }
+.stepno { font: 600 0.78rem/1 var(--mono); color: var(--magenta); }
+.steptext h4 { margin: 0; font-size: 1.15rem; }
+
+/* lightbox */
+dialog#lightbox { border: none; padding: 0; background: transparent; max-width: 96vw; max-height: 94vh; }
+dialog#lightbox::backdrop { background: rgb(8 14 18 / 0.86); }
+#lbimg { display: block; max-width: 96vw; max-height: 88vh; background: #fff; border-radius: 4px; }
+#lbclose { margin: 0 0 0.5rem auto; display: block; }
+
+.foot { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: 0.88rem; color: var(--ink-2); }
+</style>
+<style>main > .chapter { max-width: var(--wide); }</style></head><body>
+<div class="topbar"><div class="topin"><a class="brand" href="#top">DKm</a><nav aria-label="Chapters"><a href="#layout">Layout</a><a href="#fjords">Fjords</a><a href="#bathymetry">Bathymetry</a><a href="#boundaries">Boundaries</a><a href="#status">Status</a></nav></div></div>
+<main id="top">
+<header class="hero">
+  <p class="draft">Under development · updated 1 November 2026</p>
+  <h1>DKm: the Danish waters and their fjords</h1>
+  <p class="lede">A nested pyGETM setup for the Kattegat, the Belt Sea and the western Baltic, with the Danish
+  fjords at high resolution, starting with those of Jutland. A coarse root at 4 km carries the tides through the
+  straits; finer levels down to 60 m resolve the narrow sounds and the navigation channels of the fjords. The
+  bathymetry is Denmark's Depth Model at 50 m.</p>
+  <dl class="facts">
+    <div><dt>levels</dt><dd>9</dd><p>4 km to 57 m</p></div>
+    <div><dt>bathymetry</dt><dd>50 m</dd><p>Denmark's Depth Model</p></div>
+    <div><dt>root time step</dt><dd>20.6 s</dd><p>finest 1.3 s</p></div>
+    <div><dt>open boundary</dt><dd>NEAB</dd><p>hourly, all tidal constituents</p></div>
+  </dl>
+</header>
+<section id="layout" class="chapter"><header class="chap"><span class="eyebrow">Layout</span><h2>A coarse root and fine levels where the water is narrow</h2></header>
+<p>The root covers the Skagerrak, the Kattegat, the Belt Sea and the western Baltic, from the Danish North Sea
+coast to the narrowest section of the Arkona Sea (Kap Arkona–Sweden, 74 km of open boundary). At 4 km the Sound
+is closed at Helsingør and the Little Belt is land: their children connect them. Each child is a rectangle in its
+parent's grid; windows may not overlap, so neighbouring fjords share a child where their rectangles would.</p>
+<figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_root.png" aria-label="Open The hierarchy full size"><img src="fig/dkm_root.png" alt="The hierarchy" loading="lazy"></button><figcaption><strong>The hierarchy</strong><p>The root's active depth; each child's window dashed, its active region solid.</p></figcaption></figure>
+<div class="tablewrap num"><table><thead><tr><th>Level</th><th>Area</th><th>Parent, ratio</th><th>Grid</th><th>Cells</th><th>Active</th><th>Time ratio</th><th>dt</th></tr></thead><tbody><tr><td>dkm_root</td><td>7.0–13.4°E, 53.9–58.22°N</td><td>–</td><td>96 × 108</td><td>4.1 × 4.5 km</td><td>5725</td><td>1</td><td>20.6 s</td></tr><tr><td>kattegat</td><td>Skagen–Grenå, Thyborøn–Sweden</td><td>root, 3</td><td>225 × 108</td><td>1.3 × 1.5 km</td><td>8537</td><td>2</td><td>10.3 s</td></tr><tr><td>limfjord_west</td><td>Thyborøn–Nibe Bredning</td><td>kattegat, 6</td><td>450 × 288</td><td>226 × 247 m</td><td>24501</td><td>2</td><td>5.2 s</td></tr><tr><td>limfjord_east</td><td>Aalborg–Hals</td><td>kattegat, 18</td><td>504 × 216</td><td>75 × 82 m</td><td>14986</td><td>5</td><td>2.1 s</td></tr><tr><td>mariager_randers</td><td>Mariager and Randers Fjord</td><td>kattegat, 24</td><td>672 × 528</td><td>57 × 62 m</td><td>29108</td><td>8</td><td>1.3 s</td></tr><tr><td>little_belt</td><td>Little Belt with Horsens, Vejle, Kolding, Haderslev, Aabenraa, Als and Flensborg Fjord</td><td>root, 16</td><td>240 × 496</td><td>264 × 278 m</td><td>38630</td><td>5</td><td>4.1 s</td></tr><tr><td>sound</td><td>Helsingør–Falsterbo</td><td>root, 16</td><td>160 × 336</td><td>262 × 278 m</td><td>27611</td><td>5</td><td>4.1 s</td></tr><tr><td>smaalandsfarvandet</td><td>South of Sjælland: Guldborgsund, Storstrøm, Grønsund, Ulvsund, Bøgestrøm</td><td>root, 16</td><td>320 × 288</td><td>266 × 278 m</td><td>46430</td><td>5</td><td>4.1 s</td></tr><tr><td>ringkobing_fjord</td><td>Ringkøbing Fjord (sluice at Hvide Sande)</td><td>root, 16</td><td>112 × 144</td><td>259 × 278 m</td><td>2572</td><td>2</td><td>10.3 s</td></tr></tbody></table></div>
+<p class="small">dt = 0.8 × pyGETM's <code>Domain.cfl_check</code>, the time ratio chosen per level. Active: the wet cells a level computes.
+The two finest children are about half of the work and their grids are 90 % land.</p>
+</section>
+<section id="fjords" class="chapter"><header class="chap"><span class="eyebrow">Fjords</span><h2>The children</h2></header>
+<figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_children.png" aria-label="Open Every child over the cells it computes full size"><img src="fig/dkm_children.png" alt="Every child over the cells it computes" loading="lazy"></button><figcaption><strong>Every child over the cells it computes</strong><p>Grey: water that stays with the parent (inside the window, not active); magenta: the interface cells; star: the cell that sets pyGETM's time step.</p></figcaption></figure>
+<div class="twocol">
+<div><h4>North Jutland</h4><ul>
+<li>The Limfjord connects the North Sea (Thyborøn) with the Kattegat (Hals), so the Kattegat level reaches west to Thyborøn and the Limfjord nests in it.</li>
+<li>The broad western Limfjord at 240 m; the narrow eastern part (300–600 m wide, navigation channel 100–150 m) at 80 m, a third of that.</li>
+<li>Mariager and Randers Fjord (200–500 m wide, dredged fairways) at 60 m.</li>
+<li>Their outer parts are 1–2 m deep: these levels need drying and flooding.</li></ul></div>
+<div><h4>The straits and the south</h4><ul>
+<li>Little Belt at 270 m with its fjords in the same level; Middelfart (70 m deep, 700 m wide) sets its time step.</li>
+<li>The Sound, Helsingør–Falsterbo, with open boundaries to the Kattegat and Køge Bugt.</li>
+<li>South of Sjælland: Guldborgsund connected through to the Baltic, with Storstrøm, Grønsund, Ulvsund and Bøgestrøm.</li>
+<li>Ringkøbing Fjord meets the sea only through the sluice at Hvide Sande: it needs a sluice connection, not ordinary nesting.</li></ul></div>
+</div>
+</section>
+<section id="bathymetry" class="chapter"><header class="chap"><span class="eyebrow">Bathymetry</span><h2>Denmark's Depth Model, completed with EMODnet</h2></header>
+<p>Denmark's Depth Model (DDM, version 2.0, Geodatastyrelsen) is a 50 m grid of the Danish waters. It covers the
+Danish EEZ only, so Swedish, German and Norwegian waters are filled from EMODnet: the DDM is averaged onto a 45 m
+lon/lat grid, and EMODnet is used only in water outside the DDM's coverage. Inside it, a cell without a DDM value
+stays land. Every level takes its block means from this one product.</p>
+<figure class="fig wide"><button class="plate" type="button" data-full="fig/ddm_emodnet.png" aria-label="Open DDM and EMODnet full size"><img src="fig/ddm_emodnet.png" alt="DDM and EMODnet" loading="lazy"></button><figcaption><strong>DDM and EMODnet</strong><p>Overview and five zooms (the Sound, the Little Belt, the eastern Limfjord, Mariager and Randers, the Kattegat's Swedish side). Red line: the area filled from EMODnet; the seam at the EEZ border is smooth.</p></figcaption></figure>
+</section>
+<section id="boundaries" class="chapter"><header class="chap"><span class="eyebrow">Boundaries</span><h2>Tides from NEAB</h2></header>
+<p>In production the root will be forced by CMEMS or another model. For now its open boundaries come from a run of
+<a href="https://bolding.github.io/neab/">NEAB</a> (all TPXO9 constituents): NEAB writes hourly elevation and
+transports of its levels, and at every point of the DKm root's grid the finest NEAB level with water there is
+used. The file has the form of a CMEMS product, a lon/lat grid in time, which pyGETM interpolates to its open
+boundary points itself; the same code will read CMEMS later.</p>
+<figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_boundaries.png" aria-label="Open The forcing at the open boundaries full size"><img src="fig/dkm_boundaries.png" alt="The forcing at the open boundaries" loading="lazy"></button><figcaption><strong>The forcing at the open boundaries</strong><p>Left: NEAB's elevation on the root's grid and the root's open boundary points. Right: elevation in the middle of each boundary. The North Sea and Skagerrak tides are about ±0.4 m, Arkona about ±3 cm; the south edge at 53.9°N crosses the German Bight off the Elbe and Weser, with ±1.4 m.</p></figcaption></figure>
+</section>
+<section id="status" class="chapter"><header class="chap"><span class="eyebrow">Status</span><h2>Where it stands</h2></header>
+<div class="statusgrid">
+<div><h4>Done</h4><ul><li>Layout of nine levels, evaluated with pyGETM's own time step check.</li><li>Bathymetry product from the DDM and EMODnet.</li><li>Open-boundary forcing from NEAB.</li></ul></div>
+<div><h4>Next</h4><ul><li>The bathymetry of every level, with the masks made consistent between levels and the dredged channels as thalwegs.</li><li>A first tidal run.</li></ul></div>
+<div><h4>Open</h4><ul><li>Sluice connections (Ringkøbing Fjord; Nissum Fjord is not in the DDM).</li><li>The fjords of the islands (Isefjord, Roskilde Fjord, Odense Fjord, …).</li><li>The root's south edge in the German Bight.</li></ul></div>
+</div>
+</section>
+<footer class="foot"><p>Contains data from Denmark's Depth Model (DDM) v2.0, Geodatastyrelsen, downloaded 1 November 2026; EMODnet Bathymetry; TPXO9 tides through <a href="https://bolding.github.io/neab/">NEAB</a>. Built with the two-way nesting for pyGETM developed by Bolding &amp; Bruggeman (fork <code>bolding/pygetm</code>, branch <code>nesting-mpmd</code>); the code of the setup is not public yet.</p><p>Karsten Bolding, Bolding &amp; Bruggeman.</p></footer>
+</main>
+<dialog id="lightbox" aria-label="Figure"><button type="button" id="lbclose" aria-label="Close">Close</button><img id="lbimg" alt=""></dialog>
+<script>(function () {
+  // stepper: build the nest one step at a time
+  var root = document.getElementById("stepper");
+  if (root) {
+    var steps = Array.prototype.slice.call(root.querySelectorAll("template"));
+    var btns = Array.prototype.slice.call(root.querySelectorAll(".step"));
+    var img = document.getElementById("stepimg"), plate = document.getElementById("stepplate");
+    var title = document.getElementById("steptitle"), desc = document.getElementById("stepdesc"), no = document.getElementById("stepno");
+    var k = 0;
+    steps.forEach(function (t) { var i = new Image(); i.src = t.dataset.src; });  // preload
+    function show(n) {
+      k = Math.max(0, Math.min(steps.length - 1, n));
+      var t = steps[k];
+      img.src = t.dataset.src; img.alt = t.dataset.title; plate.dataset.full = t.dataset.src;
+      title.textContent = t.dataset.title; desc.textContent = t.dataset.text;
+      no.textContent = (k + 1) + " / " + steps.length;
+      btns.forEach(function (b, i) { if (i === k) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+      document.getElementById("prev").disabled = k === 0;
+      document.getElementById("next").disabled = k === steps.length - 1;
+    }
+    btns.forEach(function (b, i) { b.addEventListener("click", function () { show(i); }); });
+    document.getElementById("prev").addEventListener("click", function () { show(k - 1); });
+    document.getElementById("next").addEventListener("click", function () { show(k + 1); });
+    root.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { show(k + 1); e.preventDefault(); }
+      if (e.key === "ArrowLeft") { show(k - 1); e.preventDefault(); }
+    });
+    show(0);
+  }
+  // figures full size
+  var dlg = document.getElementById("lightbox"), lb = document.getElementById("lbimg");
+  document.addEventListener("click", function (e) {
+    var p = e.target.closest && e.target.closest(".plate[data-full]");
+    if (!p || !dlg || typeof dlg.showModal !== "function") return;
+    lb.src = p.dataset.full; var im = p.querySelector("img"); lb.alt = im ? im.alt : "";
+    dlg.showModal();
+  });
+  if (dlg) {
+    document.getElementById("lbclose").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  }
+})();
+</script>
+</body></html>
