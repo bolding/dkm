@@ -223,27 +223,30 @@ serves both levels; each reads its own points from it.</p>
 <section id="tides" class="chapter"><header class="chap"><span class="eyebrow">Tides</span><h2>First tidal runs: the forcing sets the Kattegat</h2></header>
 <p>Ten levels, 2D, one day of spin-up and seven days from 2 January 2020, 64 cores, 82 minutes per run, bottom
 roughness 0.015 m as in NEAB. M2 from a seven-day fit, at the GESLA gauges from the finest level with water there.
-These runs used the third draft of the layout (the root kept the Arkona boundary); runs of the current layout
-are under way.</p>
+The layout is the current one: the Belt Sea has its own open boundary across the Arkona Sea. The
+third draft, where the root kept that boundary, gave the same at every gauge.</p>
 <figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_m2.png" aria-label="Open M2 amplitude with three open-boundary forcings full size"><img src="fig/dkm_m2.png" alt="M2 amplitude with three open-boundary forcings" loading="lazy"></button><figcaption><strong>M2 amplitude with three open-boundary forcings</strong><p>The same DKm with its open boundaries from NEAB, TPXO9 and CMEMS. Dots: the gauges, coloured by the observed amplitude. Right: model against observed.</p></figcaption></figure>
 <div class="tablewrap num"><table><thead><tr><th>Gauge</th><th>observed</th><th>NEAB</th><th>TPXO9</th><th>CMEMS</th></tr></thead><tbody>
 <tr><td>Skagen</td><td>0.138 m</td><td>0.273 m</td><td>0.147 m</td><td>0.098 m</td></tr>
 <tr><td>Frederikshavn</td><td>0.140 m</td><td>0.281 m</td><td>0.151 m</td><td>0.099 m</td></tr>
 <tr><td>Aarhus</td><td>0.168 m</td><td>0.292 m</td><td>0.180 m</td><td>0.088 m</td></tr>
 <tr><td>Juelsminde (Little Belt)</td><td>0.183 m</td><td>0.305 m</td><td>0.191 m</td><td>0.095 m</td></tr>
-<tr><td>Hornbæk (Sound)</td><td>0.070 m</td><td>0.141 m</td><td>0.077 m</td><td>0.042 m</td></tr>
-<tr><td>Gedser</td><td>0.038 m</td><td>0.058 m</td><td>0.030 m</td><td>0.011 m</td></tr>
-<tr><td>Median model/obs</td><td></td><td>1.80</td><td>1.09</td><td>0.70</td></tr>
+<tr><td>Hornbæk (Sound)</td><td>0.070 m</td><td>0.141 m</td><td>0.077 m</td><td>0.041 m</td></tr>
+<tr><td>Gedser</td><td>0.038 m</td><td>0.060 m</td><td>0.031 m</td><td>0.011 m</td></tr>
+<tr><td>Kiel</td><td>0.046 m</td><td>0.080 m</td><td>0.069 m</td><td>0.028 m</td></tr>
+<tr><td>Travemünde</td><td>0.059 m</td><td>0.088 m</td><td>0.056 m</td><td>0.021 m</td></tr>
+<tr><td>Median model/obs, 89 gauges</td><td></td><td>1.78</td><td>1.09</td><td>0.70</td></tr>
 </tbody></table></div>
 <p>With TPXO9 at its boundaries DKm reproduces the tide of the Kattegat and the Belts. NEAB's tide is twice too
 large and CMEMS's a third too small, from the Skagerrak inwards. Both come in through the northern part of the
 west boundary, near the Skagerrak amphidrome: at 57.5–58°N the M2 there is 0.16 m in NEAB and 0.04 m in CMEMS.
-DKm itself is not the cause. The Wadden Sea gauges are poor with every forcing: the root has 4 km cells there.</p>
+DKm itself is not the cause. The Wadden Sea gauges are poor with every forcing: the root has 4 km cells there.
+Kiel is too high with NEAB and TPXO9 even with the Kiel Canal closed.</p>
 </section>
 <section id="status" class="chapter"><header class="chap"><span class="eyebrow">Status</span><h2>Where it stands</h2></header>
 <div class="statusgrid">
-<div><h4>Done</h4><ul><li>Ten levels, evaluated with pyGETM's own time step check; bathymetry of every level from the DDM and EMODnet.</li><li>Open boundaries at the model's points from NEAB, TPXO9 and CMEMS; a child level with its own open boundary.</li><li>Eight-day tidal runs with three forcings.</li></ul></div>
-<div><h4>Next</h4><ul><li>Runs of the current layout.</li><li>Coupling levels side by side (the Belt Sea directly against the Kattegat).</li><li>The dredged channels as thalwegs in the bathymetry.</li></ul></div>
+<div><h4>Done</h4><ul><li>Ten levels, evaluated with pyGETM's own time step check; bathymetry of every level from the DDM and EMODnet.</li><li>Open boundaries at the model's points from NEAB, TPXO9 and CMEMS; a child level with its own open boundary.</li><li>Eight-day tidal runs of the current layout with three forcings.</li></ul></div>
+<div><h4>Next</h4><ul><li>Drop water cut off from the sea (lagoons, river ends) from the fine levels.</li><li>Coupling levels side by side (the Belt Sea directly against the Kattegat).</li><li>The dredged channels as thalwegs in the bathymetry.</li></ul></div>
 <div><h4>Open</h4><ul><li>Sluice connections (Ringkøbing Fjord; Nissum Fjord is not in the DDM).</li><li>The fjords of the islands (Isefjord, Roskilde Fjord, Odense Fjord, …).</li><li>The Wadden Sea.</li></ul></div>
 </div>
 </section>
