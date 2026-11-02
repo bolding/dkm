@@ -240,14 +240,16 @@ third draft, where the root kept that boundary, gave the same at every gauge.</p
 <p>With TPXO9 at its boundaries DKm reproduces the tide of the Kattegat and the Belts. NEAB's tide is twice too
 large and CMEMS's a third too small, from the Skagerrak inwards. Both come in through the northern part of the
 west boundary, near the Skagerrak amphidrome: at 57.5–58°N the M2 there is 0.16 m in NEAB and 0.04 m in CMEMS.
-DKm itself is not the cause. The Wadden Sea gauges are poor with every forcing: the root has 4 km cells there.
+DKm itself is not the cause. NEAB's error comes from its North Sea (the amphidrome in front of the German Bight,
+see <a href="https://bolding.github.io/neab/#northsea">NEAB</a>). For now TPXO9 is the forcing to use for the tide;
+CMEMS will be needed for the sea level beyond the tide. The Wadden Sea gauges are poor with every forcing: the root has 4 km cells there.
 Kiel is too high with NEAB and TPXO9 even with the Kiel Canal closed.</p>
 </section>
 <section id="status" class="chapter"><header class="chap"><span class="eyebrow">Status</span><h2>Where it stands</h2></header>
 <div class="statusgrid">
 <div><h4>Done</h4><ul><li>Ten levels, evaluated with pyGETM's own time step check; bathymetry of every level from the DDM and EMODnet.</li><li>Open boundaries at the model's points from NEAB, TPXO9 and CMEMS; a child level with its own open boundary.</li><li>Eight-day tidal runs of the current layout with three forcings.</li></ul></div>
 <div><h4>Next</h4><ul><li>Drop water cut off from the sea (lagoons, river ends) from the fine levels.</li><li>Coupling levels side by side (the Belt Sea directly against the Kattegat).</li><li>The dredged channels as thalwegs in the bathymetry.</li></ul></div>
-<div><h4>Open</h4><ul><li>Sluice connections (Ringkøbing Fjord; Nissum Fjord is not in the DDM).</li><li>The fjords of the islands (Isefjord, Roskilde Fjord, Odense Fjord, …).</li><li>The Wadden Sea.</li></ul></div>
+<div><h4>Open</h4><ul><li>Sluice connections (Ringkøbing Fjord; Nissum Fjord is not in the DDM).</li><li>The fjords of the islands (Isefjord, Roskilde Fjord, Odense Fjord, …).</li><li>The Wadden Sea, with its intertidal flats (also for NEAB).</li></ul></div>
 </div>
 </section>
 <footer class="foot"><p>Contains data from Denmark's Depth Model (DDM) v2.0, Geodatastyrelsen, downloaded 1 November 2026; EMODnet Bathymetry; E.U. Copernicus Marine Service Information (NWSHELF_MULTIYEAR_PHY_004_009, BALTICSEA_MULTIYEAR_PHY_003_011); GESLA tide gauges; TPXO9 tides, directly and through <a href="https://bolding.github.io/neab/">NEAB</a>. Built with the two-way nesting for pyGETM developed by Bolding &amp; Bruggeman (fork <code>bolding/pygetm</code>, branch <code>nesting-mpmd</code>); the code of the setup is not public yet.</p><p>Karsten Bolding, Bolding &amp; Bruggeman.</p></footer>
