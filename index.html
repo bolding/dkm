@@ -198,6 +198,12 @@ cannot nest in the Kattegat. It has no connection to the sea other than the slui
 the east, beyond Bornholm, would then only take a larger root.</p>
 <figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_nested_root.png" aria-label="Open The nested variant full size"><img src="fig/dkm_nested_root.png" alt="The nested variant" loading="lazy"></button><figcaption><strong>The nested variant</strong><p>As above, for dkm_nested.yaml: the Kattegat's window (blue, dashed) holds the Belt Sea's.</p></figcaption></figure>
 <figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_nested_children.png" aria-label="Open The children of the nested variant full size"><img src="fig/dkm_nested_children.png" alt="The children of the nested variant" loading="lazy"></button><figcaption><strong>The children of the nested variant</strong><p>As for the children above. On the Kattegat's east edge the magenta cells are its open boundary across the Arkona Sea, not an interface.</p></figcaption></figure>
+<p>An eight-day run of the variant with TPXO9 at the open boundaries gives the same tide as the current layout. At
+89 gauges the rms error of the M2 amplitude is 0.128 m in both, and the median ratio model/observed is 1.08 against
+1.09. The largest difference at a gauge is 4 mm, at Hvide Sande next to the left-out Ringkøbing Fjord. The variant
+ran on 28 cores instead of 63. Its Kattegat, on 2 cores, waited a third of the time for the levels around it, so it
+needs a few more.</p>
+<figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_nested_m2.png" aria-label="Open M2 in the nested variant full size"><img src="fig/dkm_nested_m2.png" alt="M2 in the nested variant" loading="lazy"></button><figcaption><strong>M2 in the nested variant</strong><p>M2 amplitude of every level over the cells it computes (finest on top), TPXO9 at the open boundaries, with the GESLA gauges (dots: observed amplitude). Right: model against gauges.</p></figcaption></figure>
 </section>
 <section id="fjords" class="chapter"><header class="chap"><span class="eyebrow">Fjords</span><h2>The children</h2></header>
 <figure class="fig wide"><button class="plate" type="button" data-full="fig/dkm_children.png" aria-label="Open Every child over the cells it computes full size"><img src="fig/dkm_children.png" alt="Every child over the cells it computes" loading="lazy"></button><figcaption><strong>Every child over the cells it computes</strong><p>Grey: water that stays with the parent (inside the window, not active); magenta: the interface cells; star: the cell that sets pyGETM's time step.</p></figcaption></figure>
@@ -266,8 +272,8 @@ Kiel is too high with NEAB and TPXO9 even with the Kiel Canal closed.</p>
 </section>
 <section id="status" class="chapter"><header class="chap"><span class="eyebrow">Status</span><h2>Where it stands</h2></header>
 <div class="statusgrid">
-<div><h4>Done</h4><ul><li>Ten levels, evaluated with pyGETM's own time step check; bathymetry of every level from the DDM and EMODnet.</li><li>Open boundaries at the model's points from NEAB, TPXO9 and CMEMS; a child level with its own open boundary.</li><li>Eight-day tidal runs of the current layout with three forcings.</li><li>A nested variant with the Belt Sea inside the Kattegat (no coupling side by side needed).</li></ul></div>
-<div><h4>Next</h4><ul><li>Drop water cut off from the sea (lagoons, river ends) from the fine levels.</li><li>The nested variant against the current layout (an eight-day run with TPXO9 is under way).</li><li>The dredged channels as thalwegs in the bathymetry.</li></ul></div>
+<div><h4>Done</h4><ul><li>Ten levels, evaluated with pyGETM's own time step check; bathymetry of every level from the DDM and EMODnet.</li><li>Open boundaries at the model's points from NEAB, TPXO9 and CMEMS; a child level with its own open boundary.</li><li>Eight-day tidal runs of the current layout with three forcings.</li><li>A nested variant with the Belt Sea inside the Kattegat (no coupling side by side needed), tested with TPXO9: the same tide as the current layout.</li></ul></div>
+<div><h4>Next</h4><ul><li>Drop water cut off from the sea (lagoons, river ends) from the fine levels.</li><li>Choose between the two layouts. The nested variant gives the same tide on fewer cores.</li><li>The dredged channels as thalwegs in the bathymetry.</li></ul></div>
 <div><h4>Open</h4><ul><li>Sluice connections (Ringkøbing Fjord; Nissum Fjord is not in the DDM).</li><li>The fjords of the islands (Isefjord, Roskilde Fjord, Odense Fjord, …).</li><li>The Wadden Sea, with its intertidal flats (NEAB has a first Wadden Sea level).</li></ul></div>
 </div>
 </section>
